@@ -355,17 +355,21 @@ def post_process_coords(
     polygon_from_2d_box = MultiPoint(corner_coords).convex_hull
     img_canvas = box(0, 0, imsize[0], imsize[1])
 
+    from shapely.geometry.polygon import Polygon
     if polygon_from_2d_box.intersects(img_canvas):
         img_intersection = polygon_from_2d_box.intersection(img_canvas)
-        intersection_coords = np.array(
-            [coord for coord in img_intersection.exterior.coords])
+        if isinstance(img_intersection, Polygon):
+            intersection_coords = np.array(
+                [coord for coord in img_intersection.exterior.coords])
 
-        min_x = min(intersection_coords[:, 0])
-        min_y = min(intersection_coords[:, 1])
-        max_x = max(intersection_coords[:, 0])
-        max_y = max(intersection_coords[:, 1])
+            min_x = min(intersection_coords[:, 0])
+            min_y = min(intersection_coords[:, 1])
+            max_x = max(intersection_coords[:, 0])
+            max_y = max(intersection_coords[:, 1])
 
-        return min_x, min_y, max_x, max_y
+            return min_x, min_y, max_x, max_y
+        else:
+            return None
     else:
         return None
 

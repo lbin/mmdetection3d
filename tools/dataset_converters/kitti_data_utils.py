@@ -20,7 +20,7 @@ def get_image_index_str(img_idx, use_prefix_id=False):
 def get_kitti_info_path(idx,
                         prefix,
                         info_type='image_2',
-                        file_tail='.png',
+                        file_tail='.jpg',
                         training=True,
                         relative_path=True,
                         exist_check=True,
@@ -46,7 +46,7 @@ def get_image_path(idx,
                    relative_path=True,
                    exist_check=True,
                    info_type='image_2',
-                   file_tail='.png',
+                   file_tail='.jpg',
                    use_prefix_id=False):
     return get_kitti_info_path(idx, prefix, info_type, file_tail, training,
                                relative_path, exist_check, use_prefix_id)
